@@ -28,6 +28,12 @@ gcloud auth application-default login
 ```
 
 ## Создание .env файла
-
-Заполните переменную окружения `GOOGLE_APPLICATION_CREDENTIALS`, где лежит путь до файла с ключами от Google.
-А так же `TG_TOKEN`, где лежит токен он вашего бота
+Необходимо заполнить `.env` файл вида
+```commandline
+TG_TOKEN='xxxx'
+PROJECT_ID='xxx'
+GOOGLE_APPLICATION_CREDENTIALS='xxxx'
+```
+- `GOOGLE_APPLICATION_CREDENTIALS` где лежит путь до файла с ключами от Google.
+- `TG_TOKEN`, лежит токен он вашего бота
+- `PROJECT_ID` ID Вашего проекта

@@ -1,3 +1,6 @@
+import json
+from pprint import pprint
+
 from environs import Env
 from google.cloud import dialogflow
 from google.cloud import api_keys_v2
@@ -16,16 +19,6 @@ def detect_intent_text(project_id, session_id, text, language_code='ru-RU'):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
-
-    print("Query text: {}".format(response.query_result.query_text))
-    print(
-        "Detected intent: {} (confidence: {})\n".format(
-            response.query_result.intent.display_name,
-            response.query_result.intent_detection_confidence,
-        )
-    )
-    print("Fulfillment text: {}\n".format(response.query_result.fulfillment_text))
-
     return response
 
 
@@ -43,8 +36,10 @@ def cancel(update, _):
 
 
 def echo(update, context):
-    print(update)
-    update.message.reply_text(update.message.text )
+    chat_id = update['message']['chat']['id']
+    text = update['message']['text']
+    response = detect_intent_text(project_id, chat_id, text)
+    update.message.reply_text(response.query_result.fulfillment_text)
 
 
 
@@ -55,14 +50,11 @@ if __name__ == '__main__':
     google_key = env('GOOGLE_KEY')
     project_id = env('PROJECT_ID')
 
-    detect_intent_text(project_id, 1, 'Привет')
 
-
-    # updater = Updater(token=bot_token, use_context=True)
-    # dispatcher = updater.dispatcher
-    #
-    # dispatcher.add_handler(CommandHandler('cancel', cancel))
-    # dispatcher.add_handler(CommandHandler('start', start, run_async=True))
-    # dispatcher.add_handler(MessageHandler(Filters.text, echo))
-    # updater.start_polling()
-    # updater.idle()
+    updater = Updater(token=bot_token, use_context=True)
+    dispatcher = updater.dispatcher
+    dispatcher.add_handler(CommandHandler('cancel', cancel))
+    dispatcher.add_handler(CommandHandler('start', start, run_async=True))
+    dispatcher.add_handler(MessageHandler(Filters.text, echo))
+    updater.start_polling()
+    updater.idle()
