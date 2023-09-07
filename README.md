@@ -1,6 +1,11 @@
 # speech_recognition_bot
 
 # Установка
+Python3 должен быть уже установлен. Затем используйте pip (или pip3, есть конфликт с Python2) для установки зависимостей:
+```commandline
+pip install -r requirements.txt
+```
+
 ## Получение credentials.json от Google-аккаунта
 Установите консольную утилиту [gcloud](https://cloud.google.com/sdk/docs/install). Перезапустите компьютер.
 После чего введите команду
@@ -33,6 +38,7 @@ gcloud auth application-default login
 TG_TOKEN='xxxx'
 PROJECT_ID='xxx'
 GOOGLE_APPLICATION_CREDENTIALS='xxxx'
+VK_TOKEN='xxx'
 ```
 - `GOOGLE_APPLICATION_CREDENTIALS` где лежит путь до файла с ключами от Google.
 - `TG_TOKEN`, лежит токен он вашего бота
