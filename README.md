@@ -54,3 +54,6 @@ LOG_CHAT_ID = 'ID вашего чата в телеграмме'
 ```commandline
 python learning_script.py
 ```
+
+# Пример работы
+![tg_bot](https://github.com/AntonGorynya/speech_recognition_bot/assets/15812508/2111eb60-4cc5-458f-ac2b-8a4cde296907)
