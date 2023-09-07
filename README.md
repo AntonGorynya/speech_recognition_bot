@@ -44,7 +44,7 @@ LOG_CHAT_ID = 'ID вашего чата в телеграмме'
 ```
 - `GOOGLE_APPLICATION_CREDENTIALS` где лежит путь до файла с ключами от Google.
 - `TG_TOKEN`, лежит токен он вашего бота
-- `PROJECT_ID` ID Вашего проекта
+- `GOOGLE_CLOUD_PROJECT` ID Вашего проекта
 
 Токены для Телеграм ботов вы можете получить https://telegram.me/BotFather
 Для получения CHAT_ID напишите любое сообщение вашему боту, после чего перейдите по ссылке https://api.telegram.org/bot{TG_TOKEN}/getUpdates
