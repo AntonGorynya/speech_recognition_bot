@@ -1,11 +1,4 @@
-import json
-from pprint import pprint
-
 from environs import Env
-from google.cloud import dialogflow
-from google.cloud import api_keys_v2
-from google.cloud import language_v1
-from google.cloud.api_keys_v2 import Key
 from telegram.ext import Updater, ConversationHandler, CommandHandler, MessageHandler, Filters
 from dialog_flow_common import detect_intent_text
 
