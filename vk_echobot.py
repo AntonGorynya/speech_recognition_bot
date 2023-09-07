@@ -27,7 +27,7 @@ if __name__ == "__main__":
     env.read_env()
     bot_token = env('VK_TOKEN')
     google_key = env('GOOGLE_KEY')
-    project_id = env('PROJECT_ID')
+    project_id = env('GOOGLE_CLOUD_PROJECT')
     log_bot_token = env('TELEGRAM_LOG_BOT_TOKEN')
     chat_id = env('LOG_CHAT_ID')
 

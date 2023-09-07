@@ -36,7 +36,7 @@ gcloud auth application-default login
 Необходимо заполнить `.env` файл вида
 ```commandline
 TG_TOKEN='xxxx'
-PROJECT_ID='xxx'
+GOOGLE_CLOUD_PROJECT='xxx'
 GOOGLE_APPLICATION_CREDENTIALS='xxxx'
 VK_TOKEN='xxx'
 TELEGRAM_LOG_BOT_TOKEN='Токен от лог бота хххх:yyyy'
