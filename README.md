@@ -39,7 +39,18 @@ TG_TOKEN='xxxx'
 PROJECT_ID='xxx'
 GOOGLE_APPLICATION_CREDENTIALS='xxxx'
 VK_TOKEN='xxx'
+TELEGRAM_LOG_BOT_TOKEN='Токен от лог бота хххх:yyyy'
+LOG_CHAT_ID = 'ID вашего чата в телеграмме'
 ```
 - `GOOGLE_APPLICATION_CREDENTIALS` где лежит путь до файла с ключами от Google.
 - `TG_TOKEN`, лежит токен он вашего бота
 - `PROJECT_ID` ID Вашего проекта
+
+Токены для Телеграм ботов вы можете получить https://telegram.me/BotFather
+Для получения CHAT_ID напишите любое сообщение вашему боту, после чего перейдите по ссылке https://api.telegram.org/bot{TG_TOKEN}/getUpdates
+
+## Обучение модели
+Перед первым запуском обучите модель dialogflow выполнив
+```commandline
+python learning_script.py
+```

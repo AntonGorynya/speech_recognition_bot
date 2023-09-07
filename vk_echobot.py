@@ -1,9 +1,15 @@
 import random
 from environs import Env
+import logging
 
+import telegram
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
-from dialog_flow_common import  detect_intent_text
+from dialog_flow_common import detect_intent_text
+from log_handler import TelegramLogsHandler
+
+
+logger = logging.getLogger('vk_logger')
 
 
 def echo(event, vk_api, project_id):
@@ -22,6 +28,12 @@ if __name__ == "__main__":
     bot_token = env('VK_TOKEN')
     google_key = env('GOOGLE_KEY')
     project_id = env('PROJECT_ID')
+    log_bot_token = env('TELEGRAM_LOG_BOT_TOKEN')
+    chat_id = env('LOG_CHAT_ID')
+
+    logging.basicConfig(level=logging.DEBUG)
+    log_bot = telegram.Bot(token=log_bot_token)
+    logger.addHandler(TelegramLogsHandler(log_bot, chat_id))
 
     vk_session = vk.VkApi(token=bot_token)
     vk_api = vk_session.get_api()
