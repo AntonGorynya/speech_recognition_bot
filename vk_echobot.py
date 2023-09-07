@@ -8,12 +8,12 @@ from dialog_flow_common import  detect_intent_text
 
 def echo(event, vk_api, project_id):
     response = detect_intent_text(project_id, event.user_id, event.text)
-
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=response.query_result.fulfillment_text,
-        random_id=random.randint(1,1000)
-    )
+    if not response.query_result.intent.is_fallback:
+        vk_api.messages.send(
+            user_id=event.user_id,
+            message=response.query_result.fulfillment_text,
+            random_id=random.randint(1, 1000)
+        )
 
 
 if __name__ == "__main__":
