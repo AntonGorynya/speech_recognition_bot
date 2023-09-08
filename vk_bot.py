@@ -12,7 +12,7 @@ from log_handler import TelegramLogsHandler
 logger = logging.getLogger('vk_logger')
 
 
-def echo(event, vk_api, project_id):
+def converse(event, vk_api, project_id):
     response = detect_intent_text(project_id, event.user_id, event.text)
     if not response.query_result.intent.is_fallback:
         vk_api.messages.send(
@@ -40,4 +40,4 @@ if __name__ == "__main__":
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api, project_id)
+            converse(event, vk_api, project_id)

@@ -23,7 +23,7 @@ def cancel(update, _):
     return ConversationHandler.END
 
 
-def echo(update, context):
+def converse(update, context):
     chat_id = update['message']['chat']['id']
     text = update['message']['text']
     response = detect_intent_text(project_id, chat_id, text)
@@ -48,6 +48,6 @@ if __name__ == '__main__':
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler('cancel', cancel))
     dispatcher.add_handler(CommandHandler('start', start, run_async=True))
-    dispatcher.add_handler(MessageHandler(Filters.text, echo))
+    dispatcher.add_handler(MessageHandler(Filters.text, converse))
     updater.start_polling()
     updater.idle()
