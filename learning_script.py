@@ -16,7 +16,7 @@ def create_parser():
 if __name__ == '__main__':
     env = Env()
     env.read_env()
-    project_id = env('PROJECT_ID')
+    project_id = env('GOOGLE_CLOUD_PROJECT')
     intents_client = dialogflow.IntentsClient()
     parent = dialogflow.AgentsClient.agent_path(project_id)
     parser = create_parser()
@@ -26,9 +26,9 @@ if __name__ == '__main__':
         questions = file.read()
     questions = json.loads(questions)
 
-    for topic in questions:
-        topic_questions = questions[topic]['questions']
-        topic_answer = questions[topic]['answer']
+    for topic, qa_pair in questions.items():
+        topic_questions = qa_pair['questions']
+        topic_answer = qa_pair['answer']
         try:
             response = crate_intention(topic, topic_answer, topic_questions, parent, intents_client)
             print("Intent created: {}".format(response))
