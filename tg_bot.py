@@ -1,5 +1,6 @@
 import logging
 import telegram
+from functools import partial
 
 from environs import Env
 from telegram.ext import Updater, ConversationHandler, CommandHandler, MessageHandler, Filters
@@ -13,7 +14,7 @@ logger = logging.getLogger('telegram_logger')
 def start(update, _):
     username = update.message.chat['username']
     update.message.reply_text(f'Привет {username}!')
-    echo(update, _)
+    converse(update, _)
 
 
 def cancel(update, _):
@@ -23,12 +24,11 @@ def cancel(update, _):
     return ConversationHandler.END
 
 
-def converse(update, context):
+def converse(update, context, project_id):
     chat_id = update['message']['chat']['id']
     text = update['message']['text']
     response = detect_intent_text(project_id, chat_id, text)
-    if not response.query_result.intent.is_fallback:
-        update.message.reply_text(response.query_result.fulfillment_text)
+    update.message.reply_text(response.query_result.fulfillment_text)
 
 
 if __name__ == '__main__':
@@ -39,6 +39,7 @@ if __name__ == '__main__':
     project_id = env('GOOGLE_CLOUD_PROJECT')
     log_bot_token = env('TELEGRAM_LOG_BOT_TOKEN')
     chat_id = env('LOG_CHAT_ID')
+    callback_converse = partial(converse, project_id=project_id)
 
     logging.basicConfig(level=logging.DEBUG)
     log_bot = telegram.Bot(token=log_bot_token)
@@ -48,6 +49,6 @@ if __name__ == '__main__':
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler('cancel', cancel))
     dispatcher.add_handler(CommandHandler('start', start, run_async=True))
-    dispatcher.add_handler(MessageHandler(Filters.text, converse))
+    dispatcher.add_handler(MessageHandler(Filters.text, callback_converse))
     updater.start_polling()
     updater.idle()
